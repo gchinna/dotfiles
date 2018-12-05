@@ -45,7 +45,7 @@ nnoremap <leader><space> :nohlsearch<CR>
 "################## ctags ###############
 "set tags=tags; " upward search and locate tags file from working directory - works well with 'set autochdir'
 set tags=./tags; " upward search and locate tags file from current file directory - works well with 'set noautochdir'
-set tags+=~/tmp/uvm-1.2/src/tags;
+set tags+=~/uvm-1.2/src/tags;
 
 
 "################## Folding ###############
