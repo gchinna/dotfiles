@@ -2,6 +2,8 @@
 " Reference(s):
 "     https://dougblack.io/words/a-good-vimrc.html
 "     http://vim.wikia.com/wiki/Indenting_source_code
+"     http://blog.edmondcote.com/2011/05/vim-setup-for-systemverilog.html
+"     https://www.vim.org/scripts/script.php?script_id=1586
 
 
 "################## Colors ##################
@@ -32,7 +34,7 @@ else
     " unix/linux only, default font/size (Monospace:h10) does not display underscores properly
     " _ and : do not work on unix/linux
     "set guifont=Monospace 11
-    set guifont=Liberation\ Mono\ 10
+    set guifont=Liberation\ Mono\ 11
 endif
 
 
@@ -63,3 +65,40 @@ set foldmethod=indent   " fold based on indent level
 cabbrev E Explore
 " map Shift+Tab to real Tab since tabs are expanded to spaces w/ expandtab
 inoremap <S-Tab> <C-V><Tab>
+
+
+
+"################## enable plugins ###############
+filetype plugin on
+
+"################## configure matchit plugin for systemverilog ###############
+source ~/.vim/plugin/matchit.vim
+if exists('loaded_matchit')
+    let b:match_ignorecase=0
+    let b:match_words=
+      \ '\<begin\>:\<end\>,' .
+      \ '\<if\>:\<else\>,' .
+      \ '\<module\>:\<endmodule\>,' .
+      \ '\<class\>:\<endclass\>,' .
+      \ '\<program\>:\<endprogram\>,' .
+      \ '\<clocking\>:\<endclocking\>,' .
+      \ '\<property\>:\<endproperty\>,' .
+      \ '\<sequence\>:\<endsequence\>,' .
+      \ '\<package\>:\<endpackage\>,' .
+      \ '\<covergroup\>:\<endgroup\>,' .
+      \ '\<primitive\>:\<endprimitive\>,' .
+      \ '\<specify\>:\<endspecify\>,' .
+      \ '\<generate\>:\<endgenerate\>,' .
+      \ '\<interface\>:\<endinterface\>,' .
+      \ '\<function\>:\<endfunction\>,' .
+      \ '\<task\>:\<endtask\>,' .
+      \ '\<case\>\|\<casex\>\|\<casez\>:\<endcase\>,' .
+      \ '\<fork\>:\<join\>\|\<join_any\>\|\<join_none\>,' .
+      \ '`ifdef\>:`else\>:`endif\>,'
+endif
+
+
+"################## configure ctrlp.vim plugin ###############
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" TODO: add vim-airline and ctrlp.vim plugins

@@ -1,9 +1,13 @@
-# Basic options
 --recurse=yes
 --tag-relative=yes
+--exclude=tags
 --exclude=.git
+--exclude=.git\*
+--exclude=\*.txt
+--exclude=\*.log
+--exclude=backend
+--links=no
 
-# Regex for systemverilog
 --langdef=systemverilog
 --langmap=systemverilog:.sv.svh.svi.v
 --regex-systemverilog=/^\s*(\b(static|local|virtual|protected)\b)*\s*\bclass\b\s*(\b\w+\b)/\3/c,class/
