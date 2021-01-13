@@ -1,0 +1,15 @@
+## global gitignore files/dirs
+## copy this to $HOME/.gitignore and run
+## git config --global core.excludesfile ~/.gitignore
+
+# Mac OS
+.DS_Store
+
+# Windows OS
+Thumbs.db
+
+# logs
+*.log
+
+# vim editor
+*.sw?
