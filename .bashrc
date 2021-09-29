@@ -50,11 +50,38 @@ fi
 # aliases
 ## unix/shell
 alias h="history"
+alias c="clear"
+alias rmr="rm -r"
+## ls aliases
 alias l="ls --color=auto"
 alias lr="ls -rtlh --color=auto"
 alias ll="ls -lhA --color=auto"
-alias c="clear"
-alias rm="rm -r"
+alias lsl="ls -lhA --color=auto"
+alias lld="ls -lhAd --color=auto"
+alias lsld="ls -lhAd --color=auto"
+## du aliases
+alias dug       '\du \!* -sh | grep "G[[:space:]]"'
+alias dusort    '\du \!* -sh | sort -rh'
+## wc aliases
+alias wcl       '\wc -l'
+## grep aliases
+alias grep      '\grep --color=auto'
+alias egrep     '\egrep --color=auto'
+alias zgrep     '\zgrep --color=auto'
+alias zegrep    '\zegrep --color=auto'
+alias xzgrep    '\xzgrep --color=auto'
+alias xzegrep   '\xzegrep --color=auto'
+## find aliases
+alias findf     '\find \!* -type f'
+alias findd     '\find \!* -type d'
+alias findl     '\find \!* -type l'
+alias findf10m  '\find \!* -type f -size +10M'
+alias findf100m '\find \!* -type f -size +100M'
+alias findf10g  '\find \!* -type f -size +10G'
+alias findf50g  '\find \!* -type f -size +50G'
+alias findf100g '\find \!* -type f -size +100G'
+
+
 ## gvim
 alias g="gvim -geometry 100x60+500+500"
 alias gvi="gvim -p"
