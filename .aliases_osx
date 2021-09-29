@@ -1,0 +1,5 @@
+##
+alias mvim=/Applications/MacVim.app/Contents/bin/mvim
+alias gvim=mvim
+alias g=mvim
+alias ctags="`brew --prefix`/bin/ctags"

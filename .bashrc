@@ -1,4 +1,11 @@
-source ~/work_bashrc.sh
+# only load it if `-n` succeeds ...
+if $BASH -n "$HOME/work_bashrc.sh" >& /dev/null
+then
+    printf "sourcing $HOME/work_bashrc.sh ...\n" >&2
+    source ~/work_bashrc.sh
+else
+    printf "Error in $HOME/work_bashrc.sh; not sourcing it!\n" >&2
+fi
 
 # user scripts path
 export PATH=~/tools/bin:${PATH}
@@ -7,30 +14,36 @@ export PATH=~/tools/bin:${PATH}
 #export PS1='$(whoami)@$(hostname) $(pwd) '
 export PS1='\[\033[02;32m\]$(pwd)\n\[\033[00m\]${PWD/*\//} \# $ '
 
-# use bash's PROMPT_COMMAND hook to auto-source .bashrc whenever modified.
-_prompt_command() {
-    # initialize the timestamp, if it isn't already
-    _bashrc_timestamp=${_bashrc_timestamp:-$(stat -c %Y "$HOME/.bashrc")}
-    work_bashrc_timestamp=${work_bashrc_timestamp:-$(stat -c %Y "$HOME/work_bashrc.sh")}
-
-    # if it's been modified, test and load it
-    if [[ $(stat -c %Y "$HOME/.bashrc") -gt $_bashrc_timestamp || $(stat -c %Y "$HOME/work_bashrc.sh") -gt $work_bashrc_timestamp ]]
-    then
-      # only load it if `-n` succeeds ...
-      if $BASH -n "$HOME/.bashrc" >& /dev/null
-      then
-          source "$HOME/.bashrc"
-          printf "sourcing $HOME/.bashrc ...\n" >&2
-      else
-          printf "Error in $HOME/.bashrc; not sourcing it\n" >&2
-      fi
-      # ... but update the timestamp regardless
-      _bashrc_timestamp=$(stat -c %Y "$HOME/.bashrc")
-      work_bashrc_timestamp=$(stat -c %Y "$HOME/work_bashrc.sh")
-    fi
-}
-
-PROMPT_COMMAND='_prompt_command'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX stat options seem different 
+    # skip PROMPT_COMMAND hook for now.
+    echo "skip PROMPT_COMMAND for Mac OSX ..."
+else
+    # use bash's PROMPT_COMMAND hook to auto-source .bashrc whenever modified.
+    _prompt_command() {
+        # initialize the timestamp, if it isn't already
+        _bashrc_timestamp=${_bashrc_timestamp:-$(stat -c %Y "$HOME/.bashrc")}
+        work_bashrc_timestamp=${work_bashrc_timestamp:-$(stat -c %Y "$HOME/work_bashrc.sh")}
+    
+        # if it's been modified, test and load it
+        if [[ $(stat -c %Y "$HOME/.bashrc") -gt $_bashrc_timestamp || $(stat -c %Y "$HOME/work_bashrc.sh") -gt $work_bashrc_timestamp ]]
+        then
+          # only load it if `-n` succeeds ...
+          if $BASH -n "$HOME/.bashrc" >& /dev/null
+          then
+              printf "sourcing $HOME/.bashrc ...\n" >&2
+              source "$HOME/.bashrc"
+          else
+              printf "Error in $HOME/.bashrc; not sourcing i!t\n" >&2
+          fi
+          # ... but update the timestamp regardless
+          _bashrc_timestamp=$(stat -c %Y "$HOME/.bashrc")
+          work_bashrc_timestamp=$(stat -c %Y "$HOME/work_bashrc.sh")
+        fi
+    }
+    
+    PROMPT_COMMAND='_prompt_command'
+fi
 
 
 
@@ -62,6 +75,22 @@ alias gitd="git diff"
 alias gitp="git pull"
 alias gith="git rev-parse HEAD"
 
+## OS specific aliases
+if [[ "$OSTYPE" == "darwin"* ]]; then # Mac OSX
+    source ~/.aliases_osx
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then # linux
+    echo "no linux-gnu specific aliases"
+elif [[ "$OSTYPE" == "cygwin" ]]; then # POSIX compatibility layer and Linux environment emulation for Windows
+    echo "no cygwin specific aliases"
+elif [[ "$OSTYPE" == "msys" ]]; then # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+    echo "no MinGW specific aliases"
+elif [[ "$OSTYPE" == "win32" ]]; then # I'm not sure this can happen.
+    echo "no win32 specific aliases"
+elif [[ "$OSTYPE" == "freebsd"* ]]; then  # freebsd
+    echo "no freebsd specific aliases"
+else # Unknown.
+    echo "Unknown ostype=$OSTYPE!"
+fi
 
 # functions
 ## ref: https://shinglyu.com/web/2018/12/25/counting-your-contribution-to-a-git-repository.html
