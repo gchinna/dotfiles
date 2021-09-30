@@ -80,6 +80,11 @@ alias findf100m '\find \!* -type f -size +100M'
 alias findf10g  '\find \!* -type f -size +10G'
 alias findf50g  '\find \!* -type f -size +50G'
 alias findf100g '\find \!* -type f -size +100G'
+### mail single file as attachment
+#alias mail2me   '\mail -a \!* -s "see attachment" ${MY_EMAIL} < /dev/null'
+### mail multiple attachments using multiple -a switches: eg: mailm2me  -a file1 -a file2
+#alias mailm2me   '\mail \!* -s "see attachment" ${MY_EMAIL} < /dev/null'
+
 
 
 ## gvim
