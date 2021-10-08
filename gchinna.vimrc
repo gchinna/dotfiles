@@ -72,7 +72,10 @@ inoremap <S-Tab> <C-V><Tab>
 filetype plugin on
 
 "################## configure matchit plugin for systemverilog ###############
-source ~/.vim/plugin/matchit.vim
+" snapshot from https://github.com/chrisbra/matchit included with Vim distribution at $VIM/pack/dist/opt/matchit
+packadd! matchit
+"source ~/.vim/plugin/matchit.vim
+
 if exists('loaded_matchit')
     let b:match_ignorecase=0
     let b:match_words=
@@ -98,7 +101,7 @@ if exists('loaded_matchit')
 endif
 
 
-"################## configure ctrlp.vim plugin ###############
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
-" TODO: add vim-airline and ctrlp.vim plugins
+""################## configure ctrlp.vim plugin ###############
+"set runtimepath^=~/.vim/bundle/ctrlp.vim
+"
+"" TODO: add vim-airline and ctrlp.vim plugins
