@@ -11,5 +11,5 @@ Thumbs.db
 # logs
 *.log
 
-# vim editor
+# vim/gvim tmp files
 *.sw?

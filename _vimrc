@@ -1,2 +1,2 @@
 " windows vimrc
-source $HOME/gchinna.vimrc
+source $HOME/dotfiles/gchinna.vimrc
