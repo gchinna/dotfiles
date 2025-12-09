@@ -31,10 +31,11 @@ if has("win32")
     "set guifont=Consolas:h11
     set guifont=Lucida_Sans_Typewritter:h10
 else 
-    " unix/linux only, default font/size (Monospace:h10) does not display underscores properly
+    " linux/centOS only, default font/size (Monospace:h10) does not display underscores properly
     " _ and : do not work on unix/linux
-    "set guifont=Monospace 11
-    set guifont=Liberation\ Mono\ 11
+    "set guifont=Monospace\ 11
+    "set guifont=Liberation\ Mono\ 11
+    " linux/ubuntu default *Monospace Regular 12* looks good
 endif
 
 

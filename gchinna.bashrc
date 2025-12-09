@@ -36,7 +36,8 @@ else
         # work_bashrc_timestamp=${work_bashrc_timestamp:-$(stat -c %Y "$HOME/work_bashrc.sh")}
     
         # if it's been modified, test and load it
-        if [[ $(stat -c %Y "$HOME/.bashrc") -gt $_bashrc_timestamp || $(stat -c %Y "$HOME/work_bashrc.sh") -gt $work_bashrc_timestamp ]]
+        # if [[ $(stat -c %Y "$HOME/.bashrc") -gt $_bashrc_timestamp || $(stat -c %Y "$HOME/work_bashrc.sh") -gt $work_bashrc_timestamp ]]
+        if [[ $(stat -c %Y "$HOME/.bashrc") -gt $_bashrc_timestamp ]]
         then
           # only load it if `-n` succeeds ...
           if $BASH -n "$HOME/.bashrc" >& /dev/null
@@ -68,15 +69,20 @@ mystats(){
 # find file
 ff(){
 	echo Finding file: "$1" ...
-	find . -type f -name "$1"
+	\find . -type f -name "$1"
 }
 
 # find dir
 fd(){
 	echo Finding file: "$1" ...
-	find . -type d -name "$1"
+	\find . -type d -name "$1"
 }
 
+# find link
+fl(){
+	echo Finding file: "$1" ...
+	\find . -type l -name "$1"
+}
 # grep for matching pattern recursively
 gp(){
 	echo Finding pattern: "$1" ...
@@ -87,12 +93,43 @@ gp(){
 # print the file name after the matching lines.
 ffg(){
 	echo Finding files: "$1" with pattern: "$2" ...
-	find . -name "$1" -type f -exec grep "$2" {} \; -print 
+	\find . -name "$1" -type f -exec grep "$2" {} \; -print 
 }
 
 
 # ffg: find and remove files with matching pattern 
 ffrm(){
 	echo Finding files: "$1" and remove ...
-	find . -name "$1" -type f -print -exec rm {} \;
+	\find . -name "$1" -type f -print -exec rm {} \;
 }
+
+# ff1*m/g: find files by size
+ff10m() {
+	echo "Finding files with size >10MB ..."
+    \find "$1" -type f -size +10M
+}
+ff100m() {
+	echo "Finding files with size >100MB ..."
+    \find "$1" -type f -size +100M
+}
+ff1g() {
+	echo "Finding files with size >1GB ..."
+    \find "$1" -type f -size +1G
+}
+ff10g() {
+	echo "Finding files with size >10GB ..."
+    \find "$1" -type f -size +10G
+}
+ff50g() {
+	echo "Finding files with size >50GB ..."
+    \find "$1" -type f -size +50G
+}
+ff100g() {
+	echo "Finding files with size >100GB ..."
+    \find "$1" -type f -size +100G
+}
+
+### mail single file as attachment
+#alias mail2me   '\mail -a \!* -s "see attachment" ${MY_EMAIL} < /dev/null'
+### mail multiple attachments using multiple -a switches: eg: mailm2me  -a file1 -a file2
+#alias mailm2me   '\mail \!* -s "see attachment" ${MY_EMAIL} < /dev/null'

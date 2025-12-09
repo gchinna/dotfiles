@@ -10,31 +10,26 @@ alias ll="ls -lhA --color=auto"
 alias lsl="ls -lhA --color=auto"
 alias lld="ls -lhAd --color=auto"
 alias lsld="ls -lhAd --color=auto"
-## du aliases
-alias dug       '\du \!* -sh | grep "G[[:space:]]"'
-alias dusort    '\du \!* -sh | sort -rh'
-## wc aliases
-alias wcl       '\wc -l'
-## grep aliases
-alias grep      '\grep --color=auto'
-alias egrep     '\egrep --color=auto'
-alias zgrep     '\zgrep --color=auto'
-alias zegrep    '\zegrep --color=auto'
-alias xzgrep    '\xzgrep --color=auto'
-alias xzegrep   '\xzegrep --color=auto'
+
+## du aliases - bash aliases dont accept args
+function dug() {
+  \du "$1" -sh | grep "G[[:space:]]"
+}
+function dusort() {
+  \du "$1" -sh | sort -rh
+}
+
 ## find aliases
-alias findf     '\find \!* -type f'
-alias findd     '\find \!* -type d'
-alias findl     '\find \!* -type l'
-alias findf10m  '\find \!* -type f -size +10M'
-alias findf100m '\find \!* -type f -size +100M'
-alias findf10g  '\find \!* -type f -size +10G'
-alias findf50g  '\find \!* -type f -size +50G'
-alias findf100g '\find \!* -type f -size +100G'
-### mail single file as attachment
-#alias mail2me   '\mail -a \!* -s "see attachment" ${MY_EMAIL} < /dev/null'
-### mail multiple attachments using multiple -a switches: eg: mailm2me  -a file1 -a file2
-#alias mailm2me   '\mail \!* -s "see attachment" ${MY_EMAIL} < /dev/null'
+
+## wc aliases
+alias wcl='\wc -l'
+## grep aliases
+alias grep='\grep --color=auto'
+alias egrep='\egrep --color=auto'
+alias zgrep='\zgrep --color=auto'
+alias zegrep='\zegrep --color=auto'
+alias xzgrep='\xzgrep --color=auto'
+alias xzegrep='\xzegrep --color=auto'
 
 
 ## gvim
@@ -62,14 +57,19 @@ alias gith="git rev-parse HEAD"
 if [[ "$OSTYPE" == "darwin"* ]]; then # Mac OSX
     source $HOME/dotfiles/gchinna.aliases_osx
 elif [[ "$OSTYPE" == "linux-gnu" ]]; then # linux
+    :
     # echo "no linux-gnu specific aliases"
 elif [[ "$OSTYPE" == "cygwin" ]]; then # POSIX compatibility layer and Linux environment emulation for Windows
+    :
     # echo "no cygwin specific aliases"
 elif [[ "$OSTYPE" == "msys" ]]; then # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+    :
     # echo "no MinGW specific aliases"
 elif [[ "$OSTYPE" == "win32" ]]; then # I'm not sure this can happen.
+    :
     # echo "no win32 specific aliases"
 elif [[ "$OSTYPE" == "freebsd"* ]]; then  # freebsd
+    :
     # echo "no freebsd specific aliases"
 else # Unknown.
     echo "Unknown ostype=$OSTYPE!"
