@@ -12,6 +12,7 @@ Options:
 	--novimrc      Skip installing vimrc
 	--nogitignore  Skip installing gitignore
 	--noctags      Skip installing ctags
+	--force        Force overwriting existing *rc files.
 	-d, --dryrun   Dry run mode; show what would be done without making changes.
 	-h, --help     Show this help.
 
@@ -27,6 +28,7 @@ DOTFILES_DIR="$HOME/dotfiles"
 # dotfiles list to install by default
 DOTFILES_LIST=(.bashrc .zshrc .cshrc .vimrc .gitignore .ctags)
 DRYRUN=false
+FORCE=false
 
 
 # helper to link if source exists
@@ -42,6 +44,9 @@ safe_link() {
     # TODO: prompt before overwriting existing dst?
     if [[ -e "$dst" ]]; then
         echo "WARNING: $dst file exists!"
+        if [[ "$FORCE" != true ]]; then
+            return 0
+        fi
     fi
     if [[ "$DRYRUN" == true ]]; then
         echo "[DRYRUN] ln -sf \"$src\" \"$dst\""
@@ -84,6 +89,10 @@ while [[ $# -gt 0 ]]; do
 	case "$1" in
         -d|--dryrun)
             DRYRUN=true
+            shift
+            ;;
+        -f|--force)
+            FORCE=true
             shift
             ;;
 		--nobashrc|--nobash)
