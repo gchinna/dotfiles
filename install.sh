@@ -3,11 +3,12 @@ set -euo pipefail
 
 usage() {
 	cat <<'EOF'
-Usage: install.sh [--nobashrc] [--nozshrc] [--novimrc] [-h|--help]
+Usage: install.sh [--nobashrc] [--nozshrc] [--nocshrc] [--novimrc] [-h|--help]
 
 Options:
 	--nobashrc     Skip installing bashrc
 	--nozshrc      Skip installing zshrc
+	--nocshrc      Skip installing cshrc
 	--novimrc      Skip installing vimrc
 	--nogitignore  Skip installing gitignore
 	--noctags      Skip installing ctags
@@ -24,7 +25,7 @@ EOF
 # dotfiles dir: $HOME/dotfiles
 DOTFILES_DIR="$HOME/dotfiles"
 # dotfiles list to install by default
-DOTFILES_LIST=(.bashrc .zshrc .vimrc .gitignore .ctags)
+DOTFILES_LIST=(.bashrc .zshrc .cshrc .vimrc .gitignore .ctags)
 DRYRUN=false
 
 
@@ -89,6 +90,8 @@ while [[ $# -gt 0 ]]; do
 			remove_dotfile ".bashrc"; shift ;;
 		--nozshrc|--nozsh)
 			remove_dotfile ".zshrc"; shift ;;
+		--nocshrc|--nocsh)
+			remove_dotfile ".cshrc"; shift ;;
 		--novimrc|--novim)
 			remove_dotfile ".vimrc"; shift ;;
 		--nogitignore|--nogit)

@@ -60,6 +60,29 @@ fi
 source $HOME/dotfiles/gchinna.aliases
 
 
+## OS specific aliases
+if [[ "$OSTYPE" == "darwin"* ]]; then # Mac OSX
+    source $HOME/dotfiles/gchinna.aliases_osx
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then # linux
+    :
+    # echo "no linux-gnu specific aliases"
+elif [[ "$OSTYPE" == "cygwin" ]]; then # POSIX compatibility layer and Linux environment emulation for Windows
+    :
+    # echo "no cygwin specific aliases"
+elif [[ "$OSTYPE" == "msys" ]]; then # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+    :
+    # echo "no MinGW specific aliases"
+elif [[ "$OSTYPE" == "win32" ]]; then # I'm not sure this can happen.
+    :
+    # echo "no win32 specific aliases"
+elif [[ "$OSTYPE" == "freebsd"* ]]; then  # freebsd
+    :
+    # echo "no freebsd specific aliases"
+else # Unknown.
+    echo "Unknown ostype=$OSTYPE!"
+fi
+
+
 # functions
 # ref: https://shinglyu.com/web/2018/12/25/counting-your-contribution-to-a-git-repository.html
 mystats(){
@@ -128,6 +151,16 @@ ff100g() {
 	echo "Finding files with size >100GB ..."
     \find "$1" -type f -size +100G
 }
+
+
+## du aliases - bash aliases dont accept args
+function dug() {
+  \du "$1" -sh | grep "G[[:space:]]"
+}
+function dusort() {
+  \du "$1" -sh | sort -rh
+}
+
 
 ### mail single file as attachment
 #alias mail2me   '\mail -a \!* -s "see attachment" ${MY_EMAIL} < /dev/null'

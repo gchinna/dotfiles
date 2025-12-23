@@ -1,4 +1,4 @@
-# aliases for both bash and zsh
+# aliases for bash and zsh
 ## unix/shell
 alias h="history"
 alias c="clear"
@@ -11,37 +11,29 @@ alias lsl="ls -lhA --color=auto"
 alias lld="ls -lhAd --color=auto"
 alias lsld="ls -lhAd --color=auto"
 
-## du aliases - bash aliases dont accept args
-function dug() {
-  \du "$1" -sh | grep "G[[:space:]]"
-}
-function dusort() {
-  \du "$1" -sh | sort -rh
-}
-
-## find aliases
 
 ## wc aliases
-alias wcl='\wc -l'
+alias wcl='command wc -l'
 ## grep aliases
-alias grep='\grep --color=auto'
-alias egrep='\egrep --color=auto'
-alias zgrep='\zgrep --color=auto'
-alias zegrep='\zegrep --color=auto'
-alias xzgrep='\xzgrep --color=auto'
-alias xzegrep='\xzegrep --color=auto'
+alias grep='command grep --color=auto'
+alias egrep='command egrep --color=auto'
+alias zgrep='command zgrep --color=auto'
+alias zegrep='command zegrep --color=auto'
+alias xzgrep='command xzgrep --color=auto'
+alias xzegrep='command xzegrep --color=auto'
 
 
 ## gvim
-alias g="gvim -geometry 100x60+500+500"
+alias g="gvim"
+alias gv="gvim"
 alias gvi="gvim -p"
 ## cd
 alias ..="cd .."
 alias ...="cd ../../"
 alias ....="cd ../../../"
 ## ps
-alias simjob="ps -ef | grep simv | grep `whoami`"
-alias remote="ps -ef | grep `whoami` | grep X11"
+alias simjob="ps -ef | grep simv | grep `whoami` | grep -v grep"
+alias remote="ps -ef | grep `whoami` | grep X11 | grep -v grep"
 ## git
 alias gits="git status .  -unormal"  ## git status on current directory
 alias gitst="git status   -unormal"  ## git status on top of tree
@@ -52,25 +44,3 @@ alias gitd="git diff"
 alias gitp="git pull"
 alias gith="git rev-parse HEAD"
 
-
-## OS specific aliases
-if [[ "$OSTYPE" == "darwin"* ]]; then # Mac OSX
-    source $HOME/dotfiles/gchinna.aliases_osx
-elif [[ "$OSTYPE" == "linux-gnu" ]]; then # linux
-    :
-    # echo "no linux-gnu specific aliases"
-elif [[ "$OSTYPE" == "cygwin" ]]; then # POSIX compatibility layer and Linux environment emulation for Windows
-    :
-    # echo "no cygwin specific aliases"
-elif [[ "$OSTYPE" == "msys" ]]; then # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
-    :
-    # echo "no MinGW specific aliases"
-elif [[ "$OSTYPE" == "win32" ]]; then # I'm not sure this can happen.
-    :
-    # echo "no win32 specific aliases"
-elif [[ "$OSTYPE" == "freebsd"* ]]; then  # freebsd
-    :
-    # echo "no freebsd specific aliases"
-else # Unknown.
-    echo "Unknown ostype=$OSTYPE!"
-fi
