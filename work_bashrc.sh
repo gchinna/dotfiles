@@ -1,1 +1,0 @@
-# work related bashrc
