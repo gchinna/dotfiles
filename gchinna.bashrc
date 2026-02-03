@@ -21,9 +21,9 @@ if [[ -d ~/scripts ]] ; then
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # Mac OSX stat options seem different 
-    # skip PROMPT_COMMAND hook for now.
-    echo "skip PROMPT_COMMAND for Mac OSX ..."
+    # Mac OSX stat options are different (uses -f %m instead of -c %Y)
+    # Skipping PROMPT_COMMAND auto-reload feature on macOS for now
+    :  # no-op
 else
     # customize shell prompt
     #export PS1='$(whoami)@$(hostname) $(pwd) '
@@ -45,7 +45,7 @@ else
               printf "sourcing $HOME/.bashrc ...\n" >&2
               source "$HOME/.bashrc"
           else
-              printf "Error in $HOME/.bashrc; not sourcing i!t\n" >&2
+              printf "Error in $HOME/.bashrc; not sourcing it\n" >&2
           fi
           # ... but update the timestamp regardless
           _bashrc_timestamp=$(stat -c %Y "$HOME/.bashrc")
@@ -57,12 +57,18 @@ else
 fi
 
 
-source $HOME/dotfiles/gchinna.aliases
+if [[ -f "$HOME/dotfiles/gchinna.aliases" ]]; then
+    source "$HOME/dotfiles/gchinna.aliases"
+else
+    echo "WARNING: $HOME/dotfiles/gchinna.aliases not found" >&2
+fi
 
 
 ## OS specific aliases
 if [[ "$OSTYPE" == "darwin"* ]]; then # Mac OSX
-    source $HOME/dotfiles/gchinna.aliases_osx
+    if [[ -f "$HOME/dotfiles/gchinna.aliases_osx" ]]; then
+        source "$HOME/dotfiles/gchinna.aliases_osx"
+    fi
 elif [[ "$OSTYPE" == "linux-gnu" ]]; then # linux
     :
     # echo "no linux-gnu specific aliases"
@@ -97,7 +103,7 @@ ff(){
 
 # find dir
 fd(){
-	echo Finding file: "$1" ...
+	echo Finding directory: "$1" ...
 	\find . -type d -name "$1"
 }
 

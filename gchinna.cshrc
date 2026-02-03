@@ -16,7 +16,11 @@ if ( -d ~/scripts ) then
     setenv PATH "$HOME/scripts:$PATH"
 endif
 
-source $HOME/dotfiles/gchinna.aliases.csh
+if ( -f ~/dotfiles/gchinna.aliases.csh ) then
+    source $HOME/dotfiles/gchinna.aliases.csh
+else
+    echo "WARNING: $HOME/dotfiles/gchinna.aliases.csh not found"
+endif
 
 
 # functions
